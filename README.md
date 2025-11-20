@@ -29,7 +29,7 @@
 <img width="1606" height="914" alt="image" src="https://github.com/user-attachments/assets/9131b1d9-9090-4d2d-843d-fb8b37c76043" /> </p>
 # Mail gửi tới ứng viên thông báo được chọn và thông tin... </p>
 <img width="1505" height="771" alt="image" src="https://github.com/user-attachments/assets/0e2021bb-c6a0-4374-862b-4dd191fc1456" /> </p>
-# Em cảm ơn cô đã xem bài của em 
+# Em cảm ơn cô đã xem bài của em ạ
 
 
 
