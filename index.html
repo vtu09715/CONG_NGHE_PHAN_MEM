@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tuyển dụng</title>
+
+<style>
+/* Reset và Căn chỉnh chung */
+body {
+    margin: 0;
+    background: #eef2f7; /* Nền sáng, dịu mắt */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Thẻ Card chính - Container nội dung */
+.card {
+    background: #fff;
+    padding: 30px;
+    margin: 30px auto;
+    width: 90%;
+    max-width: 1200px;
+    border-radius: 12px; /* Góc bo tròn hơn */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08); /* Đổ bóng nổi bật, mềm mại */
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+}
+
+h3 {
+    color: #004d99; /* Màu tiêu đề đậm, chuyên nghiệp */
+    border-bottom: 2px solid #eef2f7;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+/* Nút bấm (Button) */
+button {
+    padding: 12px 25px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s;
+    margin-right: 10px; /* Khoảng cách giữa các nút */
+}
+
+/* Nút Chính (Primary) */
+button:not(.secondary):not(.danger), .btnPrimary {
+    background: #007bff;
+}
+button:not(.secondary):not(.danger):hover, .btnPrimary:hover {
+    background: #0056b3;
+    transform: translateY(-1px);
+}
+
+/* Nút Phụ (Secondary) */
+button.secondary { background: #6c757d; }
+button.secondary:hover { 
+    background: #5a6268; 
+    transform: translateY(-1px);
+}
+
+/* Nút Nguy hiểm (Danger) */
+button.danger { background: #dc3545; }
+button.danger:hover { 
+    background: #bd2130; 
+    transform: translateY(-1px);
+}
+
+/* Input, Select, Textarea */
+input, select, textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0 18px;
+    border: 1px solid #cce0f0; /* Viền màu xanh nhạt */
+    border-radius: 8px;
+    box-sizing: border-box; /* Tính cả padding và border vào width */
+    font-size: 15px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    outline: none;
+}
+
+label {
+    font-weight: bold;
+    display: block;
+    margin-top: 10px;
+    color: #004d99;
+}
+
+/* Bảng Dữ liệu (Table) */
+.table {
+    width: 100%;
+    border-collapse: separate; /* Tách biệt để dễ bo góc */
+    border-spacing: 0;
+    margin-top: 15px;
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden; /* Quan trọng để bo góc */
+    border: 1px solid #eef2f7;
+}
+
+.table th,
+.table td {
+    border: none;
+    border-bottom: 1px solid #f0f4f7; /* Đường kẻ ngang mỏng */
+    padding: 15px 12px;
+    text-align: left;
+}
+
+.table th {
+    background: #f8faff; /* Nền đầu bảng */
+    color: #004d99;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+.table tr:last-child td {
+    border-bottom: none;
+}
+
+.table tbody tr:hover {
+    background: #e6f0ff; /* Hiệu ứng hover cho dòng */
+    cursor: pointer;
+}
+
+/* Ẩn/Hiện */
+.hidden { display: none !important; }
+
+/* Menu Navbar */
+.menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.menu-right {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+/* Avatar */
+.avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid #007bff; /* Viền avatar nổi bật */
+    cursor: pointer;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    transition: border-color 0.3s;
+}
+
+.avatar:hover {
+    border-color: #0056b3;
+}
+
+.avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Grid Tuyển Dụng */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Cột rộng hơn */
+    gap: 25px; /* Khoảng cách lớn hơn */
+    margin-top: 20px;
+}
+
+/* Thẻ Công việc (Job) */
+.job {
+    background: #fff;
+    border: 1px solid #e0e6ed;
+    border-radius: 10px;
+    padding: 15px;
+    transition: box-shadow 0.3s, transform 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.job:hover {
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    transform: translateY(-3px);
+}
+
+.job img {
+    width: 100%;
+    height: 180px; /* Ảnh cao hơn */
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.job h4 {
+    color: #007bff;
+    margin-top: 5px;
+    margin-bottom: 8px;
+}
+
+/* Chi tiết hồ sơ (adminDetail) */
+#adminDetail {
+    overflow: visible !important;
+}
+
+#adminDetail > div:first-child {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+
+#adminDetail p {
+    margin: 8px 0;
+    font-size: 15px;
+}
+
+#adminDetail b {
+    color: #004d99;
+}
+
+#aiBox {
+    margin-top: 30px;
+    border-top: 1px dashed #ccc;
+    padding-top: 20px;
+}
+
+#ai_match {
+    color: #28a745 !important; /* Màu xanh lá cây cho điểm */
+    font-size: 24px !important;
+    font-weight: bold;
+}
+
+#ai_review {
+    background: #f1f8ff; /* Nền nhẹ cho phần đánh giá AI */
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 5px solid #007bff;
+    white-space: pre-wrap !important; /* Đảm bảo xuống dòng theo nội dung */
+    font-family: Consolas, monospace;
+    color: #333;
+    font-size: 14px;
+}
+
+/* Thông báo lỗi/thành công */
+p#loginMsg, p#regMsg, p#ad_msg {
+    padding: 10px;
+    border-radius: 6px;
+    font-weight: bold;
+    margin-top: 15px;
+    text-align: center;
+}
+p#loginMsg[style*="color:red"], p#regMsg[style*="color:red"] {
+    background: #f8d7da;
+    color: #721c24 !important;
+    border: 1px solid #f5c6cb;
+}
+p#profileMsg[style*="color:green"], p#ad_msg[style*="color:green"] {
+    background: #d4edda;
+    color: #155724 !important;
+    border: 1px solid #c3e6cb;
+}
+
+/* Liên kết CV */
+#cvPreview, #ct_CV {
+    font-size: 15px;
+    margin-top: 10px;
+    display: block !important;
+}
+
+/* Footer cho Job Detail */
+#jobDetail button {
+    margin-top: 15px;
+}
+
+
+#lichModal {
+    box-shadow:0 10px 30px rgba(0,0,0,0.3);
+    padding:20px;
+    border-radius:10px;
+}
+
+/* FIX BUTTON ĐỒNG Ý */
+.btnPrimary { background:#28a745; /* Đổi màu Đồng ý thành xanh lá cây */ }
+.btnPrimary:hover { background: #1e7e34; }
+
+
+</style>
+</head>
+
+<body>
+
+<!-- ================= LOGIN ================= -->
+<div id="authCard" class="card">
+    <h1>HỆ THỐNG TUYỂN DỤNG CTY SAMSUNGTHAINGUYEN</h1>
+    <h3>ĐĂNG NHẬP VÀO HỆ THỐNG</h3>
+    <input id="loginUser" placeholder="Tên đăng nhập">
+    <input id="loginPass" type="password" placeholder="Mật khẩu">
+    <button onclick="doLogin()">Đăng nhập</button>
+    <button class="secondary" onclick="showRegister()">Đăng ký</button>
+    <p id="loginMsg" style="color:red"></p>
+
+    <div id="registerBox" class="hidden">
+        <h3>ĐĂNG KÝ TÀI KHOẢN</h3>
+        <input id="regUser" placeholder="Tên đăng nhập">
+        <input id="regPass" type="password" placeholder="Mật khẩu">
+        <input id="regEmail" placeholder="Email">
+        <input id="regPhone" placeholder="Số điện thoại">
+        <button onclick="doRegister()">Hoàn tất</button>
+        <button class="secondary" onclick="hideRegister()">Quay lại</button>
+        <p id="regMsg"></p>
+    </div>
+</div>
+
+<!-- =============== PANEL ỨNG VIÊN =================== -->
+<div id="userPanel" class="hidden">
+
+    <div class="card menu">
+        <h3>Trang ứng viên</h3>
+        <div class="menu-right">
+            <button onclick="showJobs()">Tin tuyển dụng</button>
+            <button onclick="showMyApplications()">Đơn đã ứng tuyển</button>
+            <div class="avatar" onclick="showProfile()">
+                <img id="avatarImg" src="/uploads/default-avatar.png">
+            </div>
+            <button class="secondary" onclick="doLogout()">Đăng xuất</button>
+        </div>
+    </div>
+
+    <div id="jobsSection" class="card">
+        <h3>Tin tuyển dụng</h3>
+        <div id="jobsGrid" class="grid">Đang tải...</div>
+    </div>
+
+    <div id="jobDetail" class="card hidden">
+        <h3 id="jd_title"></h3>
+        <p id="jd_mota"></p>
+        <p><b>Lương:</b> <span id="jd_luong"></span></p>
+        <p><b>Địa điểm:</b> <span id="jd_diadiem"></span></p>
+        <button id="jd_apply" onclick="applyJob()">Ứng tuyển</button>
+        <button class="secondary" onclick="showJobs()">Quay lại</button>
+    </div>
+
+    <!-- HỒ SƠ ỨNG VIÊN -->
+    <div id="profileSection" class="card hidden">
+        <h3>Hồ sơ cá nhân</h3>
+
+        <input id="hosoten" placeholder="Họ tên">
+        <input id="hosongaysinh" type="date">
+        <select id="hosogioitinh">
+            <option value="">Giới tính</option>
+            <option>Nam</option>
+            <option>Nữ</option>
+            <option>Khác</option>
+        </select>
+        <input id="hosodiachi" placeholder="Địa chỉ">
+        <input id="hosohocvan" placeholder="Học vấn">
+        <input id="hosokinhnghiem" placeholder="Kinh nghiệm">
+        <input id="hosokynang" placeholder="Kỹ năng">
+
+        <input type="hidden" id="hosocvurl">
+
+        <label>CV (PDF)</label>
+        <input id="hoso_cvfile" type="file" accept="application/pdf">
+
+        <p><a id="cvPreview" href="#" target="_blank" style="display:none;color:blue;font-weight:bold;">📄 Xem CV đã lưu</a></p>
+
+        <label>Ảnh đại diện:</label>
+        <input id="hosoanh" type="file">
+
+        <p><img id="avatarPreview" src="" style="width:120px;height:120px;border-radius:6px;border:1px solid #ccc;display:none;"></p>
+
+        <button onclick="saveProfile()">Lưu hồ sơ</button>
+        <button class="secondary" onclick="showJobs()">Quay lại</button>
+        <p id="profileMsg" style="color:green"></p>
+    </div>
+
+    <div id="myApplications" class="card hidden">
+        <h3>Đơn đã ứng tuyển</h3>
+        <table class="table">
+            <thead><tr><th>Vị trí</th><th>Ngày nộp</th><th>Trạng thái</th></tr></thead>
+            <tbody id="tblMyApps"></tbody>
+        </table>
+        <button class="secondary" onclick="showJobs()">Quay lại</button>
+    </div>
+</div>
+
+<!-- ===================== PANEL ADMIN ========================== -->
+<div id="adminPanel" class="hidden">
+
+    <div class="card menu">
+        <h3>Trang quản trị</h3>
+        <div class="menu-right">
+            <button onclick="adminShowManageJobs()">Xử lý tin tuyển dụng</button>
+            <button onclick="adminShowJobs()">Tin tuyển dụng</button>
+            <button onclick="adminShowPostJob()">Đăng tin</button>
+            <button onclick="adminShowApplicants()">Ứng viên ứng tuyển</button>
+            <button onclick="adminShowApproved()">Ứng viên được đồng ý</button>
+            <button onclick="adminShowRejected()">Ứng viên bị từ chối</button>
+            <button class="secondary" onclick="doLogout()">Đăng xuất</button>
+        </div>
+    </div>
+
+    <div id="adminJobs" class="card">
+        <h3>Danh sách tin tuyển dụng</h3>
+        <table class="table" id="tblAdminJobs"></table>
+    </div>
+
+    <div id="adminPostJob" class="card hidden">
+        <h3>Đăng tin tuyển dụng</h3>
+        <label>Tiêu đề</label><input id="ad_tieude">
+        <label>Mô tả</label><textarea id="ad_mota" rows="4"></textarea>
+        <label>Mức lương</label><input id="ad_mucluong">
+        <label>Địa điểm</label><input id="ad_diadiem">
+        <label>Hình ảnh</label><input id="ad_hinhanh" type="file">
+        <button onclick="adminPostJob()">Đăng tin</button>
+        <button class="secondary" onclick="adminShowJobs()">Quay lại</button>
+        <p id="ad_msg" style="margin-top:10px;color:green;"></p>
+    </div>
+
+    <!-- ỨNG VIÊN -->
+    <div id="adminApplicants" class="card hidden">
+        <h3>Ứng viên ứng tuyển</h3>
+        <table class="table" id="tblAdminApplicants"></table>
+    </div>
+
+    <div id="adminApproved" class="card hidden">
+        <h3>Danh sách ứng viên ĐƯỢC ĐỒNG Ý</h3>
+        <table class="table" id="tblApproved"></table>
+    </div>
+
+    <div id="adminRejected" class="card hidden">
+        <h3>Danh sách ứng viên BỊ TỪ CHỐI</h3>
+        <table class="table" id="tblRejected"></table>
+    </div>
+<div id="adminManageJobs" class="card hidden">
+    <h3>Xử lý tin tuyển dụng</h3>
+    <table class="table" id="tblManageJobs"></table>
+</div>
+<div id="adminJobDetail" class="card hidden">
+    <h3>Chi tiết tin tuyển dụng</h3>
+
+    <p>Mã tin: <b id="dt_ma"></b></p>
+
+    <label>Tiêu đề</label>
+    <input id="dt_tieude">
+
+    <label>Mức lương</label>
+    <input id="dt_luong">
+
+    <label>Địa điểm</label>
+    <input id="dt_diachi">
+
+    <label>Mô tả</label>
+    <textarea id="dt_mota" rows="4"></textarea>
+
+    <label>Số lượng tuyển</label>
+    <input id="dt_soluong">
+
+    <p>Đã duyệt: <b id="dt_daduyet"></b></p>
+
+    <p id="dt_canhtbao" style="color:red;font-weight:bold"></p>
+
+    <button class="btnPrimary" onclick="updateJob()">Cập nhật</button>
+    <button class="danger" onclick="deleteJob()">Xoá tin</button>
+    <button class="secondary" onclick="adminShowManageJobs()">Quay lại</button>
+</div>
+
+    <!-- ============ CHI TIẾT HỒ SƠ ============ -->
+    <div id="adminDetail" class="card hidden">
+        <h3>Chi tiết hồ sơ ứng viên</h3>
+
+        <div style="display:flex;gap:20px;flex-wrap:wrap;">
+
+            <div>
+                <div class="avatar" style="width:80px;height:80px;">
+                    <img id="ct_Avatar" src="/uploads/default-avatar.png">
+                </div>
+                <p><a id="ct_CV" href="#" target="_blank">Xem CV</a></p>
+            </div>
+
+            <div style="flex:1;">
+                <p>Họ tên: <b id="ct_HoTen"></b></p>
+                <p>Ngày sinh: <b id="ct_NgaySinh"></b></p>
+                <p>Giới tính: <b id="ct_GioiTinh"></b></p>
+                <p>Địa chỉ: <b id="ct_DiaChi"></b></p>
+                <p>Học vấn: <b id="ct_HocVan"></b></p>
+                <p>Kinh nghiệm: <b id="ct_KinhNghiem"></b></p>
+                <p>Kỹ năng: <b id="ct_KyNang"></b></p>
+                <p>Email: <b id="ct_Email"></b></p>
+                <p>SĐT: <b id="ct_SDT"></b></p>
+            </div>
+
+            <div style="flex:1;">
+                <p>Vị trí: <b id="ct_TieuDe"></b></p>
+                <p>Lương: <b id="ct_MucLuong"></b></p>
+                <p>Địa điểm: <b id="ct_DiaDiem"></b></p>
+                <p>Mô tả: <b id="ct_MoTa"></b></p>
+                <p>Trạng thái đơn: <b id="ct_TrangThai"></b></p>
+            </div>
+
+        </div>
+
+        <div id="aiBox" class="hidden">
+            <h3>AI đánh giá ứng viên</h3>
+            <p><b>Độ phù hợp:</b> <span id="ai_match" style="color:blue;font-size:18px"></span>%</p>
+            <pre id="ai_review" style="white-space:pre-line"></pre>
+        </div>
+
+        <!-- ⭐ FIX BUTTON CLICK HERE -->
+        <button id="btnDongY" class="btnPrimary" onclick="adminApprove('Được chọn')">Đồng ý</button>
+        <button id="btnTuChoi" class="danger" onclick="adminApprove('Từ chối')">Từ chối</button>
+
+        <button class="secondary" onclick="adminBack()">Quay lại</button>
+    </div>
+
+</div>
+<script>
+const $ = id => document.getElementById(id);
+function show(id){ $(id).classList.remove("hidden"); }
+function hide(id){ $(id).classList.add("hidden"); }
+
+async function api(url, method="GET", body=null, isForm=false){
+    const opt = { method, credentials:"same-origin" };
+    if(body){
+        if(isForm) opt.body = body;
+        else{
+            opt.headers = {"Content-Type":"application/json"};
+            opt.body = JSON.stringify(body);
+        }
+    }
+    const res = await fetch(url,opt);
+    return res.json();
+}
+
+/* ========== AUTH ========== */
+function showRegister(){ show("registerBox"); }
+function hideRegister(){ hide("registerBox"); }
+
+async function doRegister(){
+    const r = await api("/register","POST",{
+        username: $("regUser").value.trim(),
+        password: $("regPass").value.trim(),
+        email: $("regEmail").value.trim(),
+        sdt: $("regPhone").value.trim()
+    });
+    $("regMsg").textContent = r.message || r.error || "";
+}
+
+async function doLogin(){
+    const r = await api("/login","POST",{
+        username:$("loginUser").value.trim(),
+        password:$("loginPass").value.trim()
+    });
+
+    $("loginMsg").textContent = r.message || r.error || "";
+    if(!r.user) return;
+
+    hide("authCard");
+
+    if(r.user.role === "Admin") enterAdmin();
+    else enterUser();
+}
+
+async function doLogout(){
+    await api("/logout");
+    location.reload();
+}
+
+/* ========== USER MODE ========== */
+function showMyApplications() {
+    hide("jobsSection");
+    hide("jobDetail");
+    hide("profileSection");
+    show("myApplications");
+    loadMyApplications();
+}
+
+function enterUser(){
+    hide("adminPanel");
+    show("userPanel");
+    showJobs();
+    loadUserProfile();
+}
+
+function showJobs(){
+    hide("jobDetail");
+    hide("profileSection");
+    hide("myApplications");
+    show("jobsSection");
+    loadJobs();
+}
+async function loadMyApplications(){
+    const r = await api("/user/danhsachungtuyen");
+    const tb = $("tblMyApps");
+
+    tb.innerHTML = r.data.map(x => `
+        <tr>
+            <td>${x.TieuDe}</td>
+            <td>${new Date(x.NgayNop).toLocaleDateString("vi-VN")}</td>
+
+            <td>
+                ${x.TrangThai}
+
+                ${x.TrangThai === "Được chọn" ? `
+                    <br>
+                    <button class="secondary" style="margin-top:5px"
+                        onclick="xemLich_UngVien(${x.MaUngTuyen})">
+                        Xem lịch
+                    </button>
+                ` : ""}
+            </td>
+        </tr>
+    `).join("");
+}
+
+
+async function loadJobs(){
+    const r = await api("/admin/danhsachtin");
+    window._jobs = r.data;
+
+    const grid = $("jobsGrid");
+
+    grid.innerHTML = r.data.map(j => `
+        <div class="job">
+            ${j.HinhAnh ? `<img src="${j.HinhAnh}">` : ""}
+            <h4>${j.TieuDe}</h4>
+            <p>${(j.MoTa||"").substring(0,100)}...</p>
+            <button onclick="openJobDetail(${j.MaTin})">Xem</button>
+        </div>
+    `).join('');
+}
+
+function openJobDetail(id){
+    hide("jobsSection");
+    show("jobDetail");
+
+    const j = (window._jobs || []).find(x => x.MaTin == id) || {};
+
+    $("jd_title").textContent = j.TieuDe;
+    $("jd_mota").textContent = j.MoTa;
+    $("jd_luong").textContent = j.MucLuong;
+    $("jd_diadiem").textContent = j.DiaDiem;
+
+    $("jd_apply").dataset.id = id;
+if (j.DaDuyet >= j.SoLuongTuyen) {
+    $("jd_apply").disabled = true;
+    $("jd_apply").innerText = "Đã đủ ứng viên";
+    $("jd_apply").style.background = "#ccc";
+} else {
+    $("jd_apply").disabled = false;
+    $("jd_apply").innerText = "Ứng tuyển";
+}
+
+}
+
+function applyJob(){
+    const id = $("jd_apply").dataset.id;
+    api("/user/ungtuyen","POST",{ maTin:id }).then(r=>{
+        alert(r.message);
+        showJobs();
+    });
+}
+
+function showProfile(){
+    hide("jobsSection");
+    hide("jobDetail");
+    hide("myApplications");
+    show("profileSection");
+    loadUserProfile();
+}
+
+async function loadUserProfile(){
+    const r = await api("/user/thongtin");
+    if(!r.data) return;
+
+    const d = r.data;
+
+    $("hosoten").value = d.HoTen || "";
+    $("hosongaysinh").value = d.NgaySinh ? d.NgaySinh.split("T")[0] : "";
+    $("hosogioitinh").value = d.GioiTinh || "";
+    $("hosodiachi").value = d.DiaChi || "";
+    $("hosohocvan").value = d.HocVan || "";
+    $("hosokinhnghiem").value = d.KinhNghiem || "";
+    $("hosokynang").value = d.KyNang || "";
+
+    $("hosocvurl").value = d.CV_URL || "";
+
+    $("cvPreview").style.display = d.CV_URL ? "inline-block" : "none";
+    $("cvPreview").href = d.CV_URL || "#";
+
+    if(d.Anh){
+        $("avatarPreview").src = d.Anh;
+        $("avatarPreview").style.display = "block";
+        $("avatarImg").src = d.Anh + "?t=" + Date.now();
+    }
+}
+
+async function saveProfile(){
+    const fd = new FormData();
+    fd.append("HoTen",$("hosoten").value);
+    fd.append("NgaySinh",$("hosongaysinh").value);
+    fd.append("GioiTinh",$("hosogioitinh").value);
+    fd.append("DiaChi",$("hosodiachi").value);
+    fd.append("HocVan",$("hosohocvan").value);
+    fd.append("KinhNghiem",$("hosokinhnghiem").value);
+    fd.append("KyNang",$("hosokynang").value);
+
+    if($("hoso_cvfile").files[0]) 
+        fd.append("CV_File",$("hoso_cvfile").files[0]);
+    else 
+        fd.append("CV_URL",$("hosocvurl").value);
+
+    if($("hosoanh").files[0]) 
+        fd.append("Anh",$("hosoanh").files[0]);
+
+    const r = await api("/user/capnhat","POST",fd,true);
+
+    $("profileMsg").textContent = r.message;
+
+    if(r.anh){
+        $("avatarImg").src = r.anh + "?t=" + Date.now();
+        $("avatarPreview").src = r.anh;
+        $("avatarPreview").style.display = "block";
+    }
+
+    if(r.cv){
+        $("cvPreview").href = r.cv;
+        $("cvPreview").style.display = "inline-block";
+    }
+}
+
+/* ========== ADMIN MODE ========== */
+
+let currentHoSo = null;
+function adminShowPostJob(){
+    hideAllAdminSections();
+    show("adminPostJob");
+}
+
+function enterAdmin(){
+    hide("userPanel");
+    show("adminPanel");
+    adminShowJobs();
+}
+
+function hideAllAdminSections(){
+    hide("adminJobs");
+    hide("adminApplicants");
+    hide("adminDetail");
+    hide("adminPostJob");
+    hide("adminApproved");
+    hide("adminRejected");
+}
+
+function adminShowJobs(){
+    hideAllAdminSections();
+    show("adminJobs");
+    loadAdminJobs();
+}
+
+async function loadAdminJobs(){
+    const r = await api("/admin/danhsachtin");
+    $("tblAdminJobs").innerHTML = `
+        <tr>
+            <th>Mã</th><th>Tiêu đề</th><th>Lương</th><th>Địa điểm</th><th>Ngày đăng</th>
+        </tr>
+        ${r.data.map(t=>`
+            <tr>
+                <td>${t.MaTin}</td>
+                <td>${t.TieuDe}</td>
+                <td>${t.MucLuong}</td>
+                <td>${t.DiaDiem}</td>
+                <td>${new Date(t.NgayDang).toLocaleDateString("vi-VN")}</td>
+            </tr>
+        `).join("")}
+    `;
+}
+
+function adminShowApplicants(){
+    hideAllAdminSections();
+    show("adminApplicants");
+    loadAdminApplicants();
+}
+
+async function loadAdminApplicants(){
+    const r = await api("/admin/ungvien");
+    $("tblAdminApplicants").innerHTML = `
+        <tr>
+            <th>Họ tên</th><th>Email</th><th>SĐT</th>
+            <th>Vị trí</th><th>Ngày nộp</th><th>Trạng thái</th><th></th>
+        </tr>
+        ${
+            r.data.filter(x=>x.TrangThai==="Chờ duyệt").map(u=>`
+                <tr>
+                    <td>${u.HoTen}</td>
+                    <td>${u.Email}</td>
+                    <td>${u.SoDienThoai}</td>
+                    <td>${u.TieuDe}</td>
+                    <td>${new Date(u.NgayNop).toLocaleDateString("vi-VN")}</td>
+                    <td>${u.TrangThai}</td>
+                    <td><button onclick="xemHoSo(${u.MaUngTuyen})">Xem</button></td>
+                </tr>
+            `).join("")
+        }
+    `;
+}
+
+function adminShowApproved(){
+    hideAllAdminSections();
+    show("adminApproved");
+    loadApproved();
+}
+
+async function loadApproved(){
+    const r = await api("/admin/ungvien");
+
+    $("tblApproved").innerHTML = `
+        <tr>
+            <th>Họ tên</th>
+            <th>Email</th>
+            <th>SĐT</th>
+            <th>Vị trí</th>
+            <th>Ngày nộp</th>
+            <th>Trạng thái</th>
+            <th>Lịch phỏng vấn</th>
+        </tr>
+        ${
+            r.data
+            .filter(x => x.TrangThai === "Được chọn")
+            .map(u => `
+                <tr>
+                    <td>${u.HoTen}</td>
+                    <td>${u.Email}</td>
+                    <td>${u.SoDienThoai}</td>
+                    <td>${u.TieuDe}</td>
+                    <td>${new Date(u.NgayNop).toLocaleDateString("vi-VN")}</td>
+                    <td style="color:green;font-weight:bold;">${u.TrangThai}</td>
+                    
+                    <td>
+                        <button class="btnPrimary" onclick="moDatLich(${u.MaUngTuyen})">Đặt lịch</button>
+                        <button class="secondary" onclick="xemLich(${u.MaUngTuyen})">Xem lịch</button>
+                    </td>
+                </tr>
+            `).join("")
+        }
+    `;
+}
+
+
+function adminShowRejected(){
+    hideAllAdminSections();
+    show("adminRejected");
+    loadRejected();
+}
+
+async function loadRejected(){
+    const r = await api("/admin/ungvien");
+    $("tblRejected").innerHTML = `
+        <tr>
+            <th>Họ tên</th><th>Email</th><th>SĐT</th>
+            <th>Vị trí</th><th>Ngày nộp</th><th>Trạng thái</th></tr>
+        ${
+            r.data.filter(x=>x.TrangThai==="Từ chối").map(u=>`
+                <tr>
+                    <td>${u.HoTen}</td>
+                    <td>${u.Email}</td>
+                    <td>${u.SoDienThoai}</td>
+                    <td>${u.TieuDe}</td>
+                    <td>${new Date(u.NgayNop).toLocaleDateString("vi-VN")}</td>
+                    <td style="color:red;font-weight:bold;">${u.TrangThai}</td>
+                </tr>
+            `).join("")
+        }
+    `;
+}
+
+async function xemHoSo(maUngTuyen){
+    const r = await api(`/admin/xemhoso?maUngTuyen=${maUngTuyen}`);
+    currentHoSo = r.data;
+
+    hideAllAdminSections();
+    show("adminDetail");
+
+    const d = currentHoSo;
+
+    $("ct_HoTen").textContent = d.HoTen;
+    $("ct_NgaySinh").textContent = d.NgaySinh ? d.NgaySinh.split("T")[0] : "";
+    $("ct_GioiTinh").textContent = d.GioiTinh;
+    $("ct_DiaChi").textContent = d.DiaChi;
+    $("ct_HocVan").textContent = d.HocVan;
+    $("ct_KinhNghiem").textContent = d.KinhNghiem;
+    $("ct_KyNang").textContent = d.KyNang;
+    $("ct_Email").textContent = d.Email;
+    $("ct_SDT").textContent = d.SoDienThoai;
+
+    $("ct_TieuDe").textContent = d.TieuDe;
+    $("ct_MoTa").textContent = d.MoTa;
+    $("ct_MucLuong").textContent = d.MucLuong;
+    $("ct_DiaDiem").textContent = d.DiaDiem;
+    $("ct_TrangThai").textContent = d.TrangThai;
+
+    $("ct_CV").href = d.CV_URL || "#";
+    $("ct_Avatar").src = d.Anh ? d.Anh : "/uploads/default-avatar.png";
+
+    callAIReview(d);
+}
+
+function callAIReview(data){
+    show("aiBox");
+
+    let score = Math.floor(Math.random()*41)+60;
+
+    $("ai_match").textContent = score;
+    $("ai_review").textContent = `
+Ứng viên: ${data.HoTen}
+Vị trí ứng tuyển: ${data.TieuDe}
+
+• Kinh nghiệm: ${data.KinhNghiem}
+• Kỹ năng: ${data.KyNang}
+• Học vấn: ${data.HocVan}
+
+Đánh giá tổng quan:
+- Hồ sơ khá phù hợp
+- Tiềm năng phát triển tốt
+- Khuyến nghị: Mời phỏng vấn
+`;
+}
+/* ========== QUẢN LÝ TIN TUYỂN DỤNG ========== */
+
+function adminShowManageJobs(){
+    hideAllAdminSections();
+    show("adminManageJobs");
+    loadManageJobs();
+}
+
+async function loadManageJobs(){
+    const r = await api("/admin/danhsachtin");
+
+    $("tblManageJobs").innerHTML = `
+        <tr>
+            <th>Mã</th><th>Tiêu đề</th><th>Lương</th>
+            <th>Địa điểm</th><th>Số lượng tuyển</th><th></th>
+        </tr>
+        ${r.data.map(t=>`
+            <tr>
+                <td>${t.MaTin}</td>
+                <td>${t.TieuDe}</td>
+                <td>${t.MucLuong}</td>
+                <td>${t.DiaDiem}</td>
+                <td>${t.SoLuongTuyen || "-"}</td>
+                <td><button onclick="adminEditJob(${t.MaTin})">Xử lý</button></td>
+            </tr>
+        `).join("")}
+    `;
+}
+
+async function adminEditJob(maTin){
+    const r = await api(`/admin/chitiettin?maTin=${maTin}`);
+
+    hideAllAdminSections();
+    show("adminJobDetail");
+
+    const t = r.data;
+
+    $("dt_ma").textContent = t.MaTin;
+    $("dt_tieude").value = t.TieuDe;
+    $("dt_luong").value = t.MucLuong;
+    $("dt_diachi").value = t.DiaDiem;
+    $("dt_mota").value = t.MoTa;
+    $("dt_soluong").value = t.SoLuongTuyen;
+    $("dt_daduyet").textContent = t.DaDuyet;
+
+    
+}
+
+async function updateJob(){
+    const body = {
+        maTin: $("dt_ma").textContent,
+        tieude: $("dt_tieude").value,
+        mota: $("dt_mota").value,
+        luong: $("dt_luong").value,
+        diachi: $("dt_diachi").value,
+        soluong: $("dt_soluong").value
+    };
+
+    const r = await api("/admin/suatin", "POST", body);
+
+    if (r.error) {
+        alert("Lỗi: " + r.error);
+    } else {
+        alert(r.message || "Cập nhật thành công");
+        
+    }
+}
+
+
+async function deleteJob(){
+    if(!confirm("Bạn chắc chắn muốn xoá tin này?")) return;
+
+    const maTin = $("dt_ma").textContent;
+
+    const r = await api("/admin/xoatin", "POST", { maTin });
+    alert(r.message);
+
+    adminShowManageJobs();
+}
+
+/* ========== XÉT DUYỆT ========== */
+async function adminApprove(trangThai){
+    if(!currentHoSo){
+        alert("Không tìm thấy hồ sơ");
+        return;
+    }
+
+    const maUngTuyen = currentHoSo.MaUngTuyen;
+
+    const r = await api("/admin/xetduyet", "POST", {
+        maUngTuyen,
+        trangThai
+    });
+
+    alert(r.message);
+    adminShowApplicants();
+}
+// mở popup
+function moDatLich(maUngTuyen) {
+    $("pv_maUngTuyen").value = maUngTuyen;
+    $("pv_ngay").value = "";
+    $("pv_diadiem").value = "";
+    $("pv_hinhthuc").value = "";
+    $("pv_ghichu").value = "";
+    show("lichModal");
+}
+
+function dongPopup() {
+    hide("lichModal");
+}
+
+// gửi dữ liệu lên server
+async function luuLichPhongVan() {
+    const body = {
+        maUngTuyen: $("pv_maUngTuyen").value,
+        ThoiGian: $("pv_ngay").value,
+        DiaDiem: $("pv_diadiem").value,
+        HinhThuc: $("pv_hinhthuc").value,
+        GhiChu: $("pv_ghichu").value
+    };
+
+    if (!body.ThoiGian) return alert("Vui lòng chọn thời gian!");
+
+    const r = await api("/admin/datlich", "POST", body);
+    alert(r.message);
+
+    dongPopup();
+    adminShowApproved();
+}
+
+// xem lịch đã tạo
+async function xemLich(maUngTuyen) {
+    const r = await api(`/admin/xemlich?maUngTuyen=${maUngTuyen}`);
+
+    if (!r.data) return alert("Ứng viên chưa có lịch!");
+
+    alert(
+`LỊCH PHỎNG VẤN:
+
+Thời gian: ${r.data.ThoiGian}
+Địa điểm: ${r.data.DiaDiem}
+Hình thức: ${r.data.HinhThuc}
+Ghi chú: ${r.data.GhiChu}`
+    );
+}
+
+async function xemLich_UngVien(maUT) {
+    const r = await api(`/admin/xemlich?maUngTuyen=${maUT}`);
+
+    if (!r.data) {
+        alert("Bạn chưa có lịch phỏng vấn.");
+        return;
+    }
+
+    alert(
+`LỊCH PHỎNG VẤN
+
+Thời gian: ${r.data.ThoiGian}
+Địa điểm: ${r.data.DiaDiem}
+Hình thức: ${r.data.HinhThuc}
+Ghi chú: ${r.data.GhiChu}`
+    );
+}
+
+</script>
+<!-- POPUP ĐẶT LỊCH -->
+<div id="lichModal" class="card hidden" 
+     style="max-width:500px;position:fixed;top:50%;left:50%;
+            transform:translate(-50%,-50%);z-index:999;background:white;">
+    <h3>Đặt lịch phỏng vấn</h3>
+
+    <label>Ngày phỏng vấn</label>
+    <input type="datetime-local" id="pv_ngay">
+
+    <label>Địa điểm</label>
+    <input type="text" id="pv_diadiem" placeholder="Nhập địa điểm">
+
+    <label>Hình thức</label>
+    <input type="text" id="pv_hinhthuc" placeholder="VD: Trực tiếp / Online">
+
+    <label>Ghi chú</label>
+    <textarea id="pv_ghichu" rows="3"></textarea>
+
+    <button class="btnPrimary" onclick="luuLichPhongVan()">Gửi</button>
+    <button class="secondary" onclick="dongPopup()">Đóng</button>
+
+    <input type="hidden" id="pv_maUngTuyen">
+</div>
+
+</body>
+</html>
